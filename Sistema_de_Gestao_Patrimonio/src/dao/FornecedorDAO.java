@@ -33,7 +33,7 @@ public class FornecedorDAO {
     
      public boolean adicionar(Fornecedor fornecedor){
         try {
-            String sql = "Insert into Fornecedor(nomeFornecedor,Endereco_idEndereco,email,tell) values (?,?,?,?)";
+            String sql = "call AddFornecedor(?,?,?,?)";
     
             stmt = this.con.prepareStatement(sql);
             stmt.setString(1, fornecedor.getNome());
@@ -50,7 +50,7 @@ public class FornecedorDAO {
     }
      
     public List<Fornecedor> listarTodos(){
-        String sql = "Select * from Fornecedor";
+        String sql = " call ListaFornecedor()";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -74,7 +74,7 @@ public class FornecedorDAO {
     }
     
     public Fornecedor procuraPorId(int id){
-        String sql = "SELECT * FROM Fornecedor WHERE idFornecedor = ?";
+        String sql = "call ProcuraFornecedor (?)";
         
         try{ 
         stmt = this.con.prepareStatement(sql);

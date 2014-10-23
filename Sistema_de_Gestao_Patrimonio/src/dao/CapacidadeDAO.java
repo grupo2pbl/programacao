@@ -36,8 +36,7 @@ public class CapacidadeDAO {
     
     public boolean adicionar(Capacidade capacidade){
         try {
-            String sql = "Insert into Capacidade(CategoriaMaterial_idCategoria,Compartimento_idCompartimento"
-                    + ",capacidade) values(?,?,?)";
+            String sql = "CALL addCapacidade(?,?,?)";
             stmt = this.con.prepareStatement(sql);
             stmt.setInt(1,capacidade.getCategoria().getId());
             stmt.setInt(2, capacidade.getCompartimento().getId());
@@ -53,7 +52,7 @@ public class CapacidadeDAO {
     }
     
     public List<Capacidade> listarTodos(){
-        String sql = "select * from Capacidade";
+        String sql = "call ListaCapacidade()";
         try {
             List<Capacidade> lista = new ArrayList<>();
             stmt = this.con.prepareStatement(sql);//Conexao feita
@@ -80,8 +79,7 @@ public class CapacidadeDAO {
     }
     
     public Capacidade procuraPorId(int idCategoria, int idCompartimento){
-        String sql = "SELECT * FROM Capacidade WHERE  CategoriaMaterial_idCategoria = ? AND "
-                + "Compartimento_idCompartimento = ?";
+        String sql = "call ProcuraCapacidade(?,?)";
         
         try{ 
         stmt = this.con.prepareStatement(sql);
