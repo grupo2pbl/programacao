@@ -47,6 +47,7 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
         adicionar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         tipo = new javax.swing.JComboBox();
+        erro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(100, 25));
@@ -75,6 +76,8 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Electronico", "Nao-Electronico" }));
 
+        erro.setForeground(new java.awt.Color(255, 51, 102));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,7 +99,8 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                                 .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(designacao)
-                            .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(erro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,7 +112,9 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(designacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(3, 3, 3)
+                .addComponent(erro, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,7 +122,7 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,10 +149,7 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
             if(envia()){
                 dispose();
                 JOptionPane.showMessageDialog(null, "Adicionado Com Sucesso");
-            }else
-                JOptionPane.showMessageDialog(null, "Falha ao Guardar na Base de Dados");
-        } else{
-            JOptionPane.showMessageDialog(null, "Erro");
+            }
         }
     }//GEN-LAST:event_adicionarActionPerformed
 
@@ -155,6 +158,7 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
     private javax.swing.JButton adicionar;
     private javax.swing.JButton cancelar;
     private javax.swing.JTextField designacao;
+    private javax.swing.JLabel erro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -164,18 +168,26 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
     
     private String designacaoTXT;
     private String identTXT;
+    //private String erroTXT = "";
     
     @Override
     public boolean isValido() {
         boolean valido = true;
         recebe();
+        if(designacaoTXT.isEmpty()){
+            erro.setText("Campo nao pode ser Vazio");
+            return false;
+        }
         return valido;
     }
 
     @Override
     public boolean envia() {
-        CategoriaMaterialController cmc = new CategoriaMaterialController();
-        return cmc.adicionar(designacaoTXT, identTXT);
+        if(isValido()){
+            CategoriaMaterialController cmc = new CategoriaMaterialController();
+            return cmc.adicionar(designacaoTXT, identTXT);
+        }
+        return false;
     }
 
     @Override

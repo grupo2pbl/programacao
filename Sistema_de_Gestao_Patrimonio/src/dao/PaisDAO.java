@@ -35,7 +35,7 @@ public class PaisDAO {
     
     
     public List<Pais> listarTodos(){
-        String sql = " call ListaPais()";
+        String sql = "select * from pais";
         try {
             List<Pais> lista = new ArrayList<>();
             stmt = this.con.prepareStatement(sql);//Conexao feita
@@ -57,7 +57,7 @@ public class PaisDAO {
 
     
     public Pais procuraPorId(int id){
-        String sql = "call ProcuraPais(?)";
+        String sql = "SELECT * FROM pais WHERE paisId = ?";
         
         try{ 
         stmt = this.con.prepareStatement(sql);

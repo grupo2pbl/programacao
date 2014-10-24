@@ -167,11 +167,7 @@ public class AdicionaCompartimento extends javax.swing.JPanel implements Formula
     @Override
     public boolean isValido() {
         boolean isErro = true;
-        if(!validacoes.validarTexto(1,10,designacaoTXT)){
-            erro = "Designacao nao pode ser Vazio";
-            isErro = false;
-                    //JOptionPane(JOptionPane.showMessageDialog(""));
-        }
+        
         return isErro;
     }
 

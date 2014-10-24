@@ -34,7 +34,7 @@ public class TipoCompartimentoDAO {
     
      public boolean adicionar(TipoCompartimento tipoCompartimento){
         try {
-            String sql = "call AddTipoCompartimento()";
+            String sql = "Insert into TipoCompartimento(idTipoCompartimento,designacao) values (?,?)";
             
             stmt = this.con.prepareStatement(sql);
             stmt.setInt(1, tipoCompartimento.getId());
@@ -51,7 +51,7 @@ public class TipoCompartimentoDAO {
 }
      
      public List<TipoCompartimento> listarTodos(){
-        String sql = "call ListaTipoCompartimento()";
+        String sql = "Select * from TipoCompartimento";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -71,7 +71,7 @@ public class TipoCompartimentoDAO {
     }
      
     public TipoCompartimento procuraPorId(int id){
-        String sql = "call ProcuraTipoCompartimento(?)";
+        String sql = "SELECT * FROM TipoCompartimento WHERE idTipoCompartimento = ?";
         
         try{ 
         stmt = this.con.prepareStatement(sql);
@@ -94,5 +94,15 @@ public class TipoCompartimentoDAO {
         return null;
     }
      
-    
+    /*public void apagar(int idTipoCompartimento) {
+        try {
+            String sql = "DELETE FROM TipoCompartimento WHERE idTipoCompartimento=?";
+            stmt = this.con.prepareStatement(sql);
+            stmt.setInt(1, idTipoCompartimento);
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ResponsavelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
 }

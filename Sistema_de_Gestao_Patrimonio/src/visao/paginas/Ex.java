@@ -1,6 +1,7 @@
 package visao.paginas;
 
 
+import controller.CompartimentoController;
 import controller.FornecedorController;
 import controller.FornecimentoController;
 import controller.GrupoMaterialController;
@@ -32,6 +33,7 @@ public final class Ex extends javax.swing.JFrame {
     private final AdicionarFornecedor adicionarFornecedor;
     private final AdicionaMaterialPP adicionaMaterialPP;
     private final AdicionaMaterialSP adicionaMaterialSP;
+    private final DefiniCapacidade definiCapacidade;
     private final AdicionaCompartimento adicionaCompartimento
                     = new AdicionaCompartimento();
     private final FornecedorController fornecedorController 
@@ -42,6 +44,9 @@ public final class Ex extends javax.swing.JFrame {
                     = new FornecimentoController();
     private final MaterialController materialController 
                     = new MaterialController();
+   
+    private final CompartimentoController compartimentoController
+                    = new CompartimentoController();
     /**
      * Creates new form Ex
      */
@@ -53,6 +58,7 @@ public final class Ex extends javax.swing.JFrame {
         adicionarFornecedor = new AdicionarFornecedor();
         adicionaMaterialPP = new AdicionaMaterialPP();
         adicionaMaterialSP = new AdicionaMaterialSP();
+        definiCapacidade = new DefiniCapacidade();
         //adicionaCompartimento = new AdicionaCompartimento();
         desabilitarJbInferior();
     }
@@ -112,7 +118,7 @@ public final class Ex extends javax.swing.JFrame {
         conteudoCompartimentoP = new javax.swing.JPanel();
         listaCompartimentoP = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tbCompartimento = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         formAddCompartP = new javax.swing.JTabbedPane();
         conteudoResponsavelP = new javax.swing.JPanel();
@@ -136,10 +142,12 @@ public final class Ex extends javax.swing.JFrame {
         addMaterialBJ = new javax.swing.JButton();
         addCompartimentoJB = new javax.swing.JButton();
         limpo2 = new javax.swing.JPanel();
+        proximoAddFornJB = new javax.swing.JButton();
         bjInferiorCentral = new javax.swing.JPanel();
         anteriorAddMaterialJB = new javax.swing.JButton();
         cancelarFornecedorJB = new javax.swing.JButton();
         limpo = new javax.swing.JPanel();
+        anteriorAddCompJB = new javax.swing.JButton();
         bjInferiorEsquerda = new javax.swing.JPanel();
         cancelarMaterialJB = new javax.swing.JButton();
         limpo1 = new javax.swing.JPanel();
@@ -502,7 +510,7 @@ public final class Ex extends javax.swing.JFrame {
 
         conteudoCompartimentoP.setLayout(new java.awt.CardLayout());
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tbCompartimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -510,10 +518,24 @@ public final class Ex extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo", "Designacao", "Tipo", "Responsavel"
             }
-        ));
-        jScrollPane3.setViewportView(jTable3);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tbCompartimento);
+        if (tbCompartimento.getColumnModel().getColumnCount() > 0) {
+            tbCompartimento.getColumnModel().getColumn(0).setResizable(false);
+            tbCompartimento.getColumnModel().getColumn(1).setResizable(false);
+            tbCompartimento.getColumnModel().getColumn(2).setResizable(false);
+            tbCompartimento.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -521,7 +543,7 @@ public final class Ex extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 689, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,17 +556,16 @@ public final class Ex extends javax.swing.JFrame {
             listaCompartimentoPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listaCompartimentoPLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(listaCompartimentoPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)
         );
         listaCompartimentoPLayout.setVerticalGroup(
             listaCompartimentoPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listaCompartimentoPLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -781,6 +802,14 @@ public final class Ex extends javax.swing.JFrame {
 
         bjInferiorDireita.add(limpo2, "card4");
 
+        proximoAddFornJB.setText("Proximo");
+        proximoAddFornJB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proximoAddFornJBActionPerformed(evt);
+            }
+        });
+        bjInferiorDireita.add(proximoAddFornJB, "card7");
+
         bjInferiorCentral.setLayout(new java.awt.CardLayout());
 
         anteriorAddMaterialJB.setText("Anterior");
@@ -806,6 +835,14 @@ public final class Ex extends javax.swing.JFrame {
         );
 
         bjInferiorCentral.add(limpo, "card3");
+
+        anteriorAddCompJB.setText("Anterior");
+        anteriorAddCompJB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anteriorAddCompJBActionPerformed(evt);
+            }
+        });
+        bjInferiorCentral.add(anteriorAddCompJB, "card5");
 
         bjInferiorEsquerda.setLayout(new java.awt.CardLayout());
 
@@ -1069,12 +1106,17 @@ public final class Ex extends javax.swing.JFrame {
     private void addCompBJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCompBJActionPerformed
         trocaContainer(conteudoCompartimentoP, formAddCompartP);
         formAddCompartP.add("Adicionar Compartimento", adicionaCompartimento);
-        trocaContainer(bjInferiorDireita, addCompartimentoJB);
+        formAddCompartP.add("Definir Capacidade", definiCapacidade);
+        formAddCompartP.setEnabledAt(1, false);
+        trocaContainer(bjInferiorDireita, proximoAddFornJB);
     }//GEN-LAST:event_addCompBJActionPerformed
 
     private void addCompartimentoJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCompartimentoJBActionPerformed
-        adicionaCompartimento.envia();
-        activaCompartimento();
+        if(adicionaCompartimento.envia()){
+
+            formAddCompartP.setSelectedIndex(1);
+        }
+        //activaCompartimento();
     }//GEN-LAST:event_addCompartimentoJBActionPerformed
 
     private void escolheListaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_escolheListaItemStateChanged
@@ -1085,11 +1127,24 @@ public final class Ex extends javax.swing.JFrame {
             trocaContainer(jPanel4, listaMaterialUnico);
             listaMaterialUnico();
         }
-            
-              
     }//GEN-LAST:event_escolheListaItemStateChanged
-    
-    
+
+    private void proximoAddFornJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proximoAddFornJBActionPerformed
+            formAddCompartP.setEnabledAt(1,true);
+            formAddCompartP.setEnabledAt(0,false);
+            formAddCompartP.setSelectedIndex(1);
+            trocaContainer(bjInferiorDireita, addCompartimentoJB);
+            trocaContainer(bjInferiorCentral,anteriorAddCompJB);
+    }//GEN-LAST:event_proximoAddFornJBActionPerformed
+
+    private void anteriorAddCompJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteriorAddCompJBActionPerformed
+        formAddCompartP.setEnabledAt(0,true);
+        formAddCompartP.setEnabledAt(1,false);
+        formAddCompartP.setSelectedIndex(0);
+        trocaContainer(bjInferiorDireita, proximoAddFornJB);
+        trocaContainer(bjInferiorCentral, anteriorAddCompJB);
+    }//GEN-LAST:event_anteriorAddCompJBActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -1133,6 +1188,7 @@ public final class Ex extends javax.swing.JFrame {
     private javax.swing.JButton addFornecedorJB;
     private javax.swing.JButton addMaterialBJ;
     private javax.swing.JButton addMaterialJB;
+    private javax.swing.JButton anteriorAddCompJB;
     private javax.swing.JButton anteriorAddMaterialJB;
     private javax.swing.JPanel baseP;
     private javax.swing.JPanel bjInferiorCentral;
@@ -1177,7 +1233,6 @@ public final class Ex extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel limpo;
@@ -1195,6 +1250,7 @@ public final class Ex extends javax.swing.JFrame {
     private javax.swing.JPanel menuEsquerdaP;
     private javax.swing.JPanel menuMaterialP;
     private javax.swing.JPanel paginaInicialP;
+    private javax.swing.JButton proximoAddFornJB;
     private javax.swing.JButton proximoPPJB;
     private javax.swing.JToggleButton responsavelJB;
     private javax.swing.JPanel subMenu;
@@ -1203,6 +1259,7 @@ public final class Ex extends javax.swing.JFrame {
     private javax.swing.JPanel subMenuMaterial;
     private javax.swing.JPanel subMenuResponsavel;
     private javax.swing.JPanel superiorP;
+    private javax.swing.JTable tbCompartimento;
     private javax.swing.JTable tbMaterialGrupo;
     private javax.swing.JTable tbMaterialUnico;
     private javax.swing.JTable tblFornecdor;
@@ -1241,6 +1298,7 @@ public void trocaContainer(Container base, Container novo){
         trocaContainer(conteudoCompartimentoP, listaCompartimentoP);
         desabilitarJbInferior();
         compartimentoJB.setSelected(true);
+        listaCompartimento();
     }
     
     public void activaMaterial(){
@@ -1249,8 +1307,11 @@ public void trocaContainer(Container base, Container novo){
         trocaContainer(tituloP,materialTXT);
         trocaContainer(conteudoMaterialDinamicoP,conteudoMaterial);
         trocaContainer(subMenu,subMenuMaterial);
-        desabilitarJbInferior();
+        trocaContainer(jPanel4, listaMaterialUnico);
         materialJB.setSelected(true);
+        escolheLista.setSelectedIndex(0);
+        listaMaterialUnico();
+        desabilitarJbInferior();
     }
     
     
@@ -1261,10 +1322,8 @@ public void trocaContainer(Container base, Container novo){
         while(tableModel.getRowCount() > 0){
             tableModel.removeRow(0);
         }
-        //tableModel.removeRow(0);
 
         for(Fornecedor f: fornecedores){
-            //System.out.println(f.getNome()+" "+f.getEmail()+" "+f.getEndereco().getCidade()+" "+f.getEndereco().getRua());
             String [] linhaForn = new  String[]{f.getNome(),f.getEmail(),f.getEndereco().getCidade(),f.getEndereco().getRua()};
             tableModel.addRow(linhaForn);
         }
@@ -1312,6 +1371,26 @@ public void trocaContainer(Container base, Container novo){
             preco = "0";
             
             String []linha = new String[]{codigo,categoria,modelo,tipo,estado,preco};
+            tableModel.addRow(linha);
+        }
+    }
+    
+    public void listaCompartimento(){
+        List<Compartimento> compartimentos = compartimentoController.geCompartimentos();
+        DefaultTableModel tableModel = (DefaultTableModel) tbCompartimento.getModel();
+    
+        while(tableModel.getRowCount() > 0){
+            tableModel.removeRow(0);
+}
+        
+        for(Compartimento compartimento: compartimentos){
+            String codigo,designacao,tipo,responsavel;
+            codigo = compartimento.getId()+"";
+            designacao = compartimento.getDescricao();
+            tipo = compartimento.getTipoCompartimento().getDesignacao();
+            responsavel = "Nao definido";
+            
+            String []linha = new String[]{codigo,designacao,tipo,responsavel};
             tableModel.addRow(linha);
         }
     }

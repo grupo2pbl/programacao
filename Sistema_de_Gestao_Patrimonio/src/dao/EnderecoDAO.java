@@ -35,7 +35,7 @@ public class EnderecoDAO {
     
     
     public List<Endereco> listarTodos(){
-        String sql = "call ListaEndereco ()";
+        String sql = "SELECT idEndereco,pais,cidade,numero,rua FROM Endereco";
         PaisDAO pdao = new PaisDAO();
         try {
             List<Endereco> lista = new ArrayList<>();
@@ -61,7 +61,7 @@ public class EnderecoDAO {
     
     public boolean adicionar(Endereco endereco){
         try {
-            String sql = "call AddEndereco(?,?,?,?)";
+            String sql = "Insert into Endereco(pais,cidade,numero,rua) values(?,?,?,?)";
             stmt = this.con.prepareStatement(sql);
             
             stmt.setInt(1,endereco.getPais().getId());         
@@ -80,7 +80,8 @@ public class EnderecoDAO {
 
     
     public Endereco procuraPorId(int id){
-        String sql = "call ProcuraEndereco(?)";
+        String sql = "SELECT idEndereco,pais,cidade,numero,rua "
+                + "FROM Endereco WHERE idEndereco = ?";
         PaisDAO pdao = new PaisDAO();
         try{ 
         stmt = this.con.prepareStatement(sql);
@@ -106,7 +107,7 @@ public class EnderecoDAO {
     }
     
     public Endereco ultimo(){
-        String sql = "call ProcuraUltimoEndereco()";
+        String sql = "SELECT idEndereco,pais,cidade,rua,numero FROM Endereco WHERE idEndereco = (SELECT MAX(idEndereco) FROM Endereco)";
         PaisDAO pdao = new PaisDAO();   
         try{ 
             stmt = this.con.prepareStatement(sql);

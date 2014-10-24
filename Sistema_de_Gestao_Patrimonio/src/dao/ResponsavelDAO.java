@@ -34,7 +34,7 @@ public class ResponsavelDAO {
     
     public boolean adicionar(Responsavel responsavel){
         try {
-            String sql = "call AddResponsavel(?,?,?)";
+            String sql = "Insert into Responsavel(apelido,outrosNomes,Cargo_idCargo) values (?,?,?)";
             
             
             stmt = this.con.prepareStatement(sql);
@@ -52,7 +52,7 @@ public class ResponsavelDAO {
     }
      
      public List<Responsavel> listarTodos(){
-        String sql = "call ListaResponsavel()";
+        String sql = "Select * from Responsavel";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();

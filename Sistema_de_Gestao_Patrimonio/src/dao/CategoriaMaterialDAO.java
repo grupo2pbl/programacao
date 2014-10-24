@@ -32,7 +32,8 @@ public class CategoriaMaterialDAO {
     
     public boolean adicionar(CategoriaMaterial cm){
         try {
-            String sql = "call AddCategoriaMaterial(?,?)";
+            String sql = "Insert into CategoriaMaterial(designacao,"
+                    + "identiTipo) values(?,?)";
             stmt = this.con.prepareStatement(sql);
             stmt.setString(1,cm.getDesignacao());
             stmt.setString(2,cm.getIdentiTipo());         
@@ -48,7 +49,7 @@ public class CategoriaMaterialDAO {
     
     
     public List<CategoriaMaterial> listar(){
-        String sql = "call ListaCategoriaMaterial()";
+        String sql = "Select idCategoria, designacao,identiTipo from CategoriaMaterial";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -70,7 +71,7 @@ public class CategoriaMaterialDAO {
     }
     
     public CategoriaMaterial procuraPorId(int id){
-        String sql = "call ProcuraCategoriaMaterial (?)";
+        String sql = "SELECT * FROM CategoriaMaterial WHERE idCategoria = ?";
         
         try{ 
         stmt = this.con.prepareStatement(sql);

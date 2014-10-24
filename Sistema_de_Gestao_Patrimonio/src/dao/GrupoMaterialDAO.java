@@ -32,7 +32,9 @@ public class GrupoMaterialDAO {
     
     public boolean adicionar(GrupoMaterial grupoMaterial){
         try {
-            String sql = "call AddGrupoMaterial(?,?,?,?,?,?,?,?)";
+            String sql = "Insert into GrupoMaterial(tempo_vida,"
+                    + "categoriaMaterial_idCategoria,modelo,cor,comprimento,"
+                    + "altura, profundidade, peso) values (?,?,?,?,?,?,?,?)";
                     
             stmt = this.con.prepareStatement(sql);
             stmt.setInt(1, grupoMaterial.getTempo_Vida());
@@ -54,7 +56,7 @@ public class GrupoMaterialDAO {
     }
      
     public List<GrupoMaterial> listarTodos(){
-        String sql = "call ListaGrupoMaterial()";
+        String sql = "Select * from GrupoMaterial";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -83,7 +85,7 @@ public class GrupoMaterialDAO {
     }
     
     public GrupoMaterial procuraPorId(int id){
-        String sql = "call ProcuraGrupoMaterial(?)";
+        String sql = "SELECT * FROM GrupoMaterial WHERE idGrupoMaterial = ?";
         
         try{ 
         stmt = this.con.prepareStatement(sql);
@@ -114,7 +116,7 @@ public class GrupoMaterialDAO {
     }
      
     public GrupoMaterial ultimo(){
-        String sql = " call ProcuraUltimoGrupoMaterial()";
+        String sql = "Select * from GrupoMaterial WHERE idGrupoMaterial = (SELECT MAX(idGrupoMaterial) FROM GrupoMaterial)";
         
         GrupoMaterial grupoMaterial = new GrupoMaterial();
         CategoriaMaterialDAO cmdao = new CategoriaMaterialDAO();

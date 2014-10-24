@@ -34,7 +34,8 @@ public class FornecimentoDAO {
     public boolean adicionar(Fornecimento fornecimento){
         MaterialDAO materialDAO = new MaterialDAO();
         try {
-            String sql = "call AddFornecimento (?,?,?,?,?,?,?)";
+            String sql = "Insert into Fornecimento(Fornecedor_idFornecedor,GrupoMaterial_idGrupoMaterial"
+                    + ",quantidade,tipoFornecimento,garantia,preco) values(?,?,?,?,?,?)";
             stmt = this.con.prepareStatement(sql);
             stmt.setInt(1,fornecimento.getFornecedor().getId());
             stmt.setInt(2, fornecimento.getGrupoMaterial().getId());
@@ -57,7 +58,7 @@ public class FornecimentoDAO {
     }
      
     public List<Fornecimento> listarTodos(){
-        String sql = "call ListaFornecimento()";
+        String sql = "Select * from Fornecimento";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -85,7 +86,7 @@ public class FornecimentoDAO {
     }
     
     public Fornecimento ultimo(){
-        String sql = "call ProcuraUltimoFornecimento";  
+        String sql = "SELECT * FROM Fornecimento WHERE idFornecimento = (SELECT MAX(idFornecimento) FROM Fornecimento)";  
         FornecedorDAO fdao = new FornecedorDAO();
         GrupoMaterialDAO gmdao = new GrupoMaterialDAO();
         try{ 
