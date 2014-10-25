@@ -1,4 +1,4 @@
-package visao.paginas;
+package visao.paginas.form;
 
 
 import controller.EnderecoController;

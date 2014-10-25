@@ -1,4 +1,4 @@
-package visao.paginas;
+package visao.paginas.form;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,6 +7,7 @@ package visao.paginas;
  */
 
 
+import auxiliar.Validacoes;
 import controller.CategoriaMaterialController;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -145,12 +146,11 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
-        if(isValido()){
+
             if(envia()){
                 dispose();
                 JOptionPane.showMessageDialog(null, "Adicionado Com Sucesso");
             }
-        }
     }//GEN-LAST:event_adicionarActionPerformed
 
 
@@ -166,6 +166,7 @@ public class AdicionaCategoria extends javax.swing.JFrame implements Formulario{
     private javax.swing.JComboBox tipo;
     // End of variables declaration//GEN-END:variables
     
+    private Validacoes validacoes = new Validacoes();
     private String designacaoTXT;
     private String identTXT;
     //private String erroTXT = "";

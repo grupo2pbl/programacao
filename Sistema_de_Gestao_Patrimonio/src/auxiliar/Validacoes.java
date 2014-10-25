@@ -1,8 +1,6 @@
 
 package auxiliar;
 
-import java.io.*;
-
 public class Validacoes implements Validacao{
 
     public Validacoes(){}
@@ -10,7 +8,6 @@ public class Validacoes implements Validacao{
     @Override
     public boolean validarInt(int min, int max, String valor) {
        int x=0;
-       BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
        do { 
            
            try{
@@ -30,8 +27,10 @@ public class Validacoes implements Validacao{
     @Override //feito
     public boolean validarTexto(int min, int max, String valor) {
         if(valor.length()<min || valor.length()>max)
+          
             return false;
-        return valor.matches("[A-Z][a-z]+([ -][A-Z][a-z]+)?");
+        //return true;
+        return valor.matches("[A-Z || a-z][a-z || null]+([ -][A-Z || a-z][a-z]+)([ -][A-Z] || [a-z]+)?");
     }
 
     @Override // feito
@@ -53,7 +52,6 @@ public class Validacoes implements Validacao{
     @Override
     public boolean validarFloat(float min, float max, String valor) {
         float x=0;
-        
         do {    
             try{
                x = Float.parseFloat(valor);

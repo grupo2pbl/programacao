@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package visao.paginas;
+package visao.paginas.form;
 
 import auxiliar.Validacoes;
 import controller.CompartimentoController;
@@ -166,6 +166,7 @@ public class AdicionaCompartimento extends javax.swing.JPanel implements Formula
 
     @Override
     public boolean isValido() {
+        recebe();
         boolean isErro = true;
         
         return isErro;
@@ -173,7 +174,6 @@ public class AdicionaCompartimento extends javax.swing.JPanel implements Formula
 
     @Override
     public boolean envia() {
-        recebe();
         if(isValido()){
             boolean ev;
             ev = compartimentoController.adicionar(designacaoTXT, descricaoTXT, descricaoTXT, tipoTXT);
