@@ -103,6 +103,6 @@ public class TipoCompartimentoDAO {
             stmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(ResponsavelDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }fffffffffffffffffffffffffffffff
     }*/
 }
