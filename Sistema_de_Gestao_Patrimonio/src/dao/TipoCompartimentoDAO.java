@@ -34,7 +34,7 @@ public class TipoCompartimentoDAO {
     
      public boolean adicionar(TipoCompartimento tipoCompartimento){
         try {
-            String sql = "Insert into TipoCompartimento(idTipoCompartimento,designacao) values (?,?)";
+            String sql = "call AddTipoCompartimento(?,?)";
             
             stmt = this.con.prepareStatement(sql);
             stmt.setInt(1, tipoCompartimento.getId());
@@ -51,7 +51,7 @@ public class TipoCompartimentoDAO {
 }
      
      public List<TipoCompartimento> listarTodos(){
-        String sql = "Select * from TipoCompartimento";
+        String sql = "call ListaTipoCompartimento()";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -71,7 +71,7 @@ public class TipoCompartimentoDAO {
     }
      
     public TipoCompartimento procuraPorId(int id){
-        String sql = "SELECT * FROM TipoCompartimento WHERE idTipoCompartimento = ?";
+        String sql = "call ProcuraTipoCompartimento(?)";
         
         try{ 
         stmt = this.con.prepareStatement(sql);

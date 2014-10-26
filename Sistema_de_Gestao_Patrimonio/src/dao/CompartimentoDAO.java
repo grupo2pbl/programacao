@@ -35,9 +35,7 @@ public class CompartimentoDAO {
     
     public boolean adicionar(Compartimento compartimento ){
         try {
-            String sql = "Insert into Compartimento(designacao,"
-                    + "tipoCompartimento_idTipoCompartimento,"
-                    + "descricao) values (?,?,?)";
+            String sql = "call AddCompartimento (?,?,?)";
             stmt = this.con.prepareStatement(sql);
             stmt.setString(1,compartimento.getDesignacao());
             stmt.setInt(2, compartimento.getTipoCompartimento().getId());
@@ -53,7 +51,7 @@ public class CompartimentoDAO {
     }
     
     public List<Compartimento> listarTodos(){
-        String sql = "Select * from Compartimento";
+        String sql = "call ListaCompartimento()";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -78,7 +76,7 @@ public class CompartimentoDAO {
     }
     
     public Compartimento procuraPorId(int id){
-        String sql = "SELECT * FROM Compartimento WHERE idCompartimento = ?";
+        String sql = "call ProcuraCompartimentoID(?)";
         
         try{ 
         stmt = this.con.prepareStatement(sql);
@@ -106,7 +104,7 @@ public class CompartimentoDAO {
     }
     
     public Compartimento ultimo(){
-        String sql = "Select * from Compartimento WHERE idCompartimento = (SELECT MAX(idCompartimento) FROM Compartimento)";
+        String sql = "call ProcuraUltmoCompartimento()";
         TipoCompartimentoDAO tcdao = new TipoCompartimentoDAO();
         ResponsavelDAO rdao = new ResponsavelDAO();   
         try{ 

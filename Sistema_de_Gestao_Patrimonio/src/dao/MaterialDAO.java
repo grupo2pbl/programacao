@@ -59,8 +59,7 @@ public class MaterialDAO {
     }
     
     public List<Material> listarTodos(){
-        String sql = "Select idMaterial,estado,Compartimento_idCompartimento"
-                    + ",GrupoMaterial_idGrupoMaterial,estadoChegada from Material";
+        String sql = "call ListaMaterial()";
         try{ 
         stmt = this.con.prepareStatement(sql);
         rs = stmt.executeQuery();
@@ -85,7 +84,7 @@ public class MaterialDAO {
     }
     
     public Material procuraPorId(int id){
-        String sql = "SELECT * FROM Material WHERE idMaterial = ?";
+        String sql = "call ProcuraMaterial(?)";
         
         try{ 
         stmt = this.con.prepareStatement(sql);

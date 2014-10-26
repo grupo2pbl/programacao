@@ -35,7 +35,7 @@ public class CargoDAO {
     
     
     public List<Cargo> listarCargos(){
-        String sql = "select * from Cargo";
+        String sql = "call ListaCargo()";
         try {
             List<Cargo> lista = new ArrayList<>();
             stmt = this.con.prepareStatement(sql);//Conexao feita
@@ -57,7 +57,7 @@ public class CargoDAO {
     
     public boolean adicionar(Cargo cargo){
         try {
-            String sql = "Insert into Cargo(designacao) values(?)";
+            String sql = "call AddCargo(?)";
             stmt = this.con.prepareStatement(sql);
             stmt.setString(1,cargo.getDesignacao());         
             
@@ -72,7 +72,7 @@ public class CargoDAO {
 
     
     public Cargo procuraPorId(int id){
-        String sql = "SELECT * FROM Cargo WHERE idCargo = ?";
+        String sql = "call procuraCargo(?)";
         
         try{ 
         stmt = this.con.prepareStatement(sql);

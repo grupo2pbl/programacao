@@ -34,7 +34,7 @@ public class CompartimentoResponsavelDAO {
     
     public boolean adicionar(CompartimentoResponsavel cr){
         try {
-            String sql = "INSERT INTO CompartimentoResponsavel(idCompartimento,idResponsavel,dataInicio) VALUES(?,?,?)";
+            String sql = "call AddCompartimentoResponsavel(?,?,?,?)";
             stmt = this.con.prepareStatement(sql);
             
             stmt.setInt(1, cr.getCompartimento().getId());
@@ -50,7 +50,7 @@ public class CompartimentoResponsavelDAO {
         return true;
     }
         public List<CompartimentoResponsavel> listarTodos(){
-        String sql = "SELECT id,idCompartimento,idResponsavel,dataInicio,dataFim FROM CompartimentoResponsavel";
+        String sql = "call ListaCompartimentoResponsavel()";
         CompartimentoDAO cdao = new CompartimentoDAO();
         ResponsavelDAO rdao = new ResponsavelDAO();
         try {
